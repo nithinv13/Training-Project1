@@ -1,0 +1,50 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1>Top News</h1>
+    <p>Have a look around to see some of the latest and greatest news articles</p>
+  </div>
+</div>
+
+<div class="container">
+  {% for row in rows %}
+  <div class="col-md-12 card">
+  <div class="col-md-4" style="background-color:lavender;">.col-sm-4</div>
+  <div class="col-md-8">
+    <h3><a href="{{row.0.url}}" color="black">{{row.0.title}}</a></h3>
+    <p>{{row.0.description | safe}}</p>
+  </div>
+    {% if row|length > 1 %}
+    <button id="button_{{ forloop.counter }}" onclick="change(this.id)" class = "pull-right" data-toggle="collapse" data-target="#id_{{ forloop.counter }}">Show more</button>
+    <div id = "id_{{ forloop.counter }}" class="collapse">
+    {% for entry in row %}
+      {% if row|first != entry %}
+        <h2><a href="{{entry.url}}">{{entry.title}}</a></h2>
+        <p>{{entry.description | safe}}</p>
+      {% endif %}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    </div>
+  {% endfor %}
+
+  <footer>
+    <p>&copy; News Aggregator</p>
+  </footer>
+</div> <!-- /container -->
+
+<script type="text/javascript">
+  function change(id) // no ';' here
+{
+    var elem = document.getElementById(id);
+    if (elem.innerHTML=="Show more") elem.innerHTML = "Show less";
+    else elem.innerHTML = "Show more";
+}
+</script>
+
+{% endblock %}

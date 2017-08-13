@@ -1,0 +1,32 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1>Science News</h1>
+    <p>Have a look around to see some of the latest and greatest news articles</p>
+  </div>
+</div>
+
+<div class="container">
+  {% for row in rows %}
+  <div class="col-md-6">
+    <div class="jumbotron">
+    {% for row1 in row %}
+      {% for entry in row1 %}
+      <h2><a href="{{entry.url}}">{{entry.title}}</a></h2>
+      <p>{{entry.description | safe}}</p>
+      {% endfor %}
+    {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <footer>
+    <p>&copy; News Aggregator</p>
+  </footer>
+</div> <!-- /container -->
+
+{% endblock %}
